@@ -4,12 +4,15 @@ import { toast } from "react-toastify";
 
 const EmployeesDetail = () => {
     const [employeesArr, setEmployeesArr] = useState([]);
-    const [searchEmployee, setSearchEmployee] = useState("")
+    const [searchEmployee, setSearchEmployee] = useState({ name: "", department: "" })
     const [showModal, setShowModal] = useState(false);
+    const [filteredEmployees, setFilteredEmployees] = useState([]);
 
     useEffect(() => {
         let employeesDetail = JSON.parse(localStorage.getItem("employeesDetail")) || [];
         setEmployeesArr(employeesDetail);
+
+        setFilteredEmployees(employeesDetail);
     }, []);
 
     const navigate = useNavigate();
@@ -25,8 +28,14 @@ const EmployeesDetail = () => {
         navigate(`/update-employee-form/${id}`);
     }
 
-    // const filteredEmployees = employeesArr.
+    const filterEmployee = () => {
+        const newEmployees = employeesArr
+            .filter((employee) => Object.keys(searchEmployee).length == 0 ? employeesArr : employee.name.toLowerCase().includes(searchEmployee.name.toLowerCase()) || employee.department.toLowerCase() === searchEmployee.department.toLowerCase())
 
+            setFilteredEmployees(newEmployees);
+            setSearchEmployee({ name: "", department: "" });
+            setShowModal(false)
+    }
 
     const departmentColors = {
         'engineering': 'from-blue-500 to-blue-600',
@@ -86,6 +95,8 @@ const EmployeesDetail = () => {
                                                     Name
                                                 </label>
                                                 <input
+                                                    onChange={(e) => setSearchEmployee({ ...searchEmployee, [e.target.id]: e.target.value })}
+                                                    value={searchEmployee.name}
                                                     type="text"
                                                     id="name"
                                                     placeholder="Enter employee name"
@@ -99,10 +110,12 @@ const EmployeesDetail = () => {
                                                     Department
                                                 </label>
                                                 <select
-                                                    id="category"
+                                                    onChange={(e) => setSearchEmployee({ ...searchEmployee, [e.target.id]: e.target.value })}
+                                                    value={searchEmployee.department}
+                                                    id="department"
                                                     className="w-full px-4 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                                                 >
-                                                    <option value="" disabled selected>Select department</option>
+                                                    <option value="" disabled>Select department</option>
                                                     <option value="Engineering">Engineering</option>
                                                     <option value="Marketing">Marketing</option>
                                                     <option value="HR">Human Resources</option>
@@ -116,6 +129,7 @@ const EmployeesDetail = () => {
                                                 <button
                                                     type="button"
                                                     className="inline-flex items-center px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-md transition-all duration-200"
+                                                    onClick={filterEmployee}
                                                 >
                                                     Find
                                                 </button>
@@ -157,7 +171,7 @@ const EmployeesDetail = () => {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-700/50">
-                                {employeesArr.map((employee, idx) => (
+                                {filteredEmployees.map((employee, idx) => (
                                     <tr key={employee.id} className="hover:bg-gray-700/30 transition-colors duration-150">
                                         <td className="px-3 py-4 whitespace-nowrap">
                                             <div className={`w-9 h-9 rounded-full flex items-center justify-center text-white text-sm font-semibold bg-gradient-to-br ${departmentColors[employee.department.toLowerCase()] || 'from-gray-500 to-gray-600'}`}>

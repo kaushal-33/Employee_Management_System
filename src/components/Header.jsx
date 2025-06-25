@@ -10,6 +10,7 @@ const Header = ({ loginUpdate, setLogin }) => {
     let handleLogin = () => {
         navigate("/login");
     };
+
     let handleLogout = () => {
         localStorage.setItem("isLogin", JSON.stringify(false));
         setLogin(false);
@@ -145,18 +146,21 @@ const Header = ({ loginUpdate, setLogin }) => {
                 <div className="md:hidden bg-gray-800/95 backdrop-blur-sm border-t border-gray-700">
                     <div className="px-4 py-3 space-y-2">
                         <Link
+                            onClick={() => setIsMobileMenu(false)}
                             to="/"
                             className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700/50 rounded-lg transition-all duration-200"
                         >
                             Home
                         </Link>
                         <Link
+                            onClick={() => setIsMobileMenu(false)}
                             to="/about"
                             className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700/50 rounded-lg transition-all duration-200"
                         >
                             About
                         </Link>
                         <Link
+                            onClick={() => setIsMobileMenu(false)}
                             to="/contact"
                             className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700/50 rounded-lg transition-all duration-200"
                         >
@@ -164,6 +168,7 @@ const Header = ({ loginUpdate, setLogin }) => {
                         </Link>
                         {loginUpdate && (
                             <Link
+                                onClick={() => setIsMobileMenu(false)}
                                 to="/employees-detail"
                                 className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700/50 rounded-lg transition-all duration-200"
                             >
@@ -183,7 +188,10 @@ const Header = ({ loginUpdate, setLogin }) => {
                                 </button>
                             ) : (
                                 <button
-                                    onClick={handleLogin}
+                                    onClick={() => {
+                                        handleLogin()
+                                        setIsMobileMenu(false)
+                                    }}
                                     className="w-full px-3 py-2 text-base font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition-all duration-200 flex items-center justify-center space-x-2"
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
