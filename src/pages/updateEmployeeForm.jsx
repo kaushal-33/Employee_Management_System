@@ -66,11 +66,11 @@ const UpdateEmployeeForm = () => {
                             className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
                         >
                             <option value="" disabled>Select department</option>
-                            <option value="Engineering">Engineering</option>
-                            <option value="Marketing">Marketing</option>
-                            <option value="HR">Human Resources</option>
-                            <option value="Finance">Finance</option>
-                            <option value="Developer">Development</option>
+                            <option value={1}>Engineering</option>
+                            <option value={2}>Marketing</option>
+                            <option value={3}>Human Resources</option>
+                            <option value={4}>Finance</option>
+                            <option value={5}>Development</option>
                         </select>
                     </div>
                     <div>

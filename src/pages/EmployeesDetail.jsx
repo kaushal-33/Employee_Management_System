@@ -20,6 +20,7 @@ const EmployeesDetail = () => {
     function handleDelete(id) {
         let remainingEmployee = employeesArr.filter((employee) => employee.id !== id);
         setEmployeesArr(remainingEmployee);
+        setFilteredEmployees(remainingEmployee);
         localStorage.setItem("employeesDetail", JSON.stringify(remainingEmployee));
         toast.error("Employee deleted successfully");
     }
@@ -28,23 +29,46 @@ const EmployeesDetail = () => {
         navigate(`/update-employee-form/${id}`);
     }
 
-    const filterEmployee = () => {
-        const newEmployees = employeesArr
-            .filter((employee) => Object.keys(searchEmployee).length == 0 ? employeesArr : employee.name.toLowerCase().includes(searchEmployee.name.toLowerCase()) || employee.department.toLowerCase() === searchEmployee.department.toLowerCase())
-
-            setFilteredEmployees(newEmployees);
-            setSearchEmployee({ name: "", department: "" });
-            setShowModal(false)
+    function getDepartment(value) {
+        switch (value) {
+            case 1: return "Engineering";
+            case 2: return "Marketing";
+            case 3: return "Human Resources";
+            case 4: return "Finance";
+            case 5: return "Development";
+        }
     }
 
-    const departmentColors = {
-        'engineering': 'from-blue-500 to-blue-600',
-        'marketing': 'from-purple-500 to-purple-600',
-        'sales': 'from-green-500 to-green-600',
-        'hr': 'from-pink-500 to-pink-600',
-        'finance': 'from-indigo-500 to-indigo-600',
-        'developer': 'from-yellow-500 to-yellow-600'
+    const filterEmployee = () => {
+        const newEmployees = employeesArr.filter((emp) => {
+            if (searchEmployee.name === "" && searchEmployee.department === "") {
+                return true; // No filters applied
+            } else if (searchEmployee.name !== "" && searchEmployee.department === "") {
+                return emp.name.toLowerCase().includes(searchEmployee.name.toLowerCase());
+            } else if (searchEmployee.name === "" && searchEmployee.department !== "") {
+                return emp.department == searchEmployee.department;
+            } else {
+                // Both filters are applied
+                return (
+                    emp.name.toLowerCase().includes(searchEmployee.name.toLowerCase()) &&
+                    emp.department == searchEmployee.department
+                );
+            }
+        });
+
+        setFilteredEmployees(newEmployees);
+        setSearchEmployee({ name: "", department: "" });
+        setShowModal(false);
     };
+
+
+    const departmentColors = {
+        1: 'from-blue-500 to-blue-600',
+        2: 'from-purple-500 to-purple-600',
+        3: 'from-green-500 to-green-600',
+        4: 'from-pink-500 to-pink-600',
+        5: 'from-indigo-500 to-indigo-600',
+    }; ``
 
     return (
         <section className="relative bg-gray-900 min-h-screen py-12">
@@ -116,11 +140,11 @@ const EmployeesDetail = () => {
                                                     className="w-full px-4 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                                                 >
                                                     <option value="" disabled>Select department</option>
-                                                    <option value="Engineering">Engineering</option>
-                                                    <option value="Marketing">Marketing</option>
-                                                    <option value="HR">Human Resources</option>
-                                                    <option value="Finance">Finance</option>
-                                                    <option value="Developer">Development</option>
+                                                    <option value={1}>Engineering</option>
+                                                    <option value={2}>Marketing</option>
+                                                    <option value={3}>Human Resources</option>
+                                                    <option value={4}>Finance</option>
+                                                    <option value={5}>Development</option>
                                                 </select>
                                             </div>
 
@@ -181,7 +205,7 @@ const EmployeesDetail = () => {
                                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white capitalize">{employee.name}</td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <span className={`px-2.5 py-1 rounded-full text-xs font-medium capitalize ${departmentColors[employee.department.toLowerCase()] ? `bg-gradient-to-r ${departmentColors[employee.department.toLowerCase()]} text-white` : 'bg-gray-600 text-gray-200'}`}>
-                                                {employee.department}
+                                                {getDepartment(parseInt(employee.department))}
                                             </span>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-400">
@@ -216,7 +240,7 @@ const EmployeesDetail = () => {
                     </div>
                 </div>
 
-                {employeesArr.length === 0 && (
+                {filteredEmployees.length === 0 && (
                     <div className="text-center py-16">
                         <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
