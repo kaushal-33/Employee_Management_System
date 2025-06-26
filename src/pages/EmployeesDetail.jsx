@@ -7,7 +7,8 @@ const EmployeesDetail = () => {
     const [searchEmployee, setSearchEmployee] = useState({ name: "", department: "" })
     const [showModal, setShowModal] = useState(false);
     const [filteredEmployees, setFilteredEmployees] = useState([]);
-
+    const [isSort, setIsSort] = useState(false);
+    const [showIcon, setShowIcon] = useState(false)
     useEffect(() => {
         let employeesDetail = JSON.parse(localStorage.getItem("employeesDetail")) || [];
         setEmployeesArr(employeesDetail);
@@ -62,13 +63,23 @@ const EmployeesDetail = () => {
     };
 
 
+
+
     const departmentColors = {
         1: 'from-blue-500 to-blue-600',
         2: 'from-purple-500 to-purple-600',
         3: 'from-green-500 to-green-600',
         4: 'from-pink-500 to-pink-600',
         5: 'from-indigo-500 to-indigo-600',
-    }; ``
+    };
+
+    const handleSort = () => {
+        setIsSort(!isSort)
+        filteredEmployees.sort((a, b) => {
+            return isSort ? a.salary - b.salary : b.salary - a.salary
+        })
+        setShowIcon(true)
+    };
 
     return (
         <section className="relative bg-gray-900 min-h-screen py-12">
@@ -190,7 +201,10 @@ const EmployeesDetail = () => {
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">ID</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Employee</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Department</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Salary</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium cursor-pointer select-none text-gray-300 uppercase tracking-wider" onClick={handleSort}><span>salary</span>
+                                        {/* {!showIcon &&  */}
+                                        {showIcon ? isSort ? "⬇️" : "⬆️" : <span className="block text-[10px] text-blue-300">click to sort</span>}
+                                    </th>
                                     <th className="px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">Actions</th>
                                 </tr>
                             </thead>
