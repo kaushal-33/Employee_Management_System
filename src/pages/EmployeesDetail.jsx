@@ -49,6 +49,12 @@ const EmployeesDetail = () => {
     }
 
     const filterEmployee = () => {
+
+        if (searchEmployee.name.trim() == "" && searchEmployee.department == "") {
+            toast.error("can't search empty input fields..")
+            return;
+        }
+
         const newEmployees = employeesArr.filter((emp) => {
             if (searchEmployee.name === "" && searchEmployee.department === "") {
                 return true; // No filters applied
