@@ -13,7 +13,7 @@ import Contact from './pages/Contact'
 import EmployeesDetail from './pages/EmployeesDetail'
 import EmployeeForm from './pages/EmployeeForm'
 import ProtectedRoute from './pages/ProtectedRoute'
-import UpdateEmployeeForm from './pages/UpdateEmployeeForm'
+import EmployeeUpdateForm from './pages/EmployeeUpdateForm'
 
 const App = () => {
 
@@ -33,7 +33,7 @@ const App = () => {
         <Route path='/login' element={<LoginPage setLogin={setLoginStatus} />} />
         <Route path='/employees-detail' element={<ProtectedRoute Component={EmployeesDetail} />} />
         <Route path='/employees-form' element={<ProtectedRoute Component={EmployeeForm} />} />
-        <Route path='/update-employee-form/:id' element={<ProtectedRoute Component={UpdateEmployeeForm} />} />
+        <Route path='/update-employee-form/:id' element={<ProtectedRoute Component={EmployeeUpdateForm} />} />
       </Routes>
       <ToastContainer />
     </BrowserRouter>
