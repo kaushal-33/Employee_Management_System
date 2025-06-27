@@ -1,7 +1,7 @@
 
 const About = () => {
     return (
-        <section className="relative bg-black min-vh py-20 flex items-center">
+        <section className="relative bg-black min-vh py-20 flex items-center overflow-x-hidden">
             {/* Background Elements */}
             <div className="absolute inset-0 opacity-20">
                 <div className="absolute top-32 left-32 w-80 h-80 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl animate-float" />

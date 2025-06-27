@@ -2,7 +2,7 @@ import React from 'react'
 
 const Contact = () => {
     return (
-        <section className="relative bg-black min-vh py-20">
+        <section className="relative bg-black min-vh py-20 overflow-x-hidden">
             {/* Background Elements */}
             <div className="absolute inset-0 opacity-20">
                 <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl animate-float" />
@@ -25,7 +25,7 @@ const Contact = () => {
 
                 <div className="grid lg:grid-cols-2 gap-16">
                     <div className="animate-slide-up" style={{ animationDelay: '0.2s' }}>
-                        <div className="bg-gray-800 rounded-2xl p-8 shadow-2xl border border-gray-700 h-full">
+                        <div className="bg-gray-800 rounded-2xl sm:p-8 p-4 shadow-2xl border border-gray-700 h-full">
                             <h2 className="text-3xl font-bold text-white mb-6">
                                 Send us a
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"> Message</span>
@@ -117,7 +117,7 @@ const Contact = () => {
                         {/* Contact Cards */}
                         <div className="space-y-6 mb-8">
                             {/* Office Location */}
-                            <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-blue-500 transition-all duration-300">
+                            <div className="bg-gray-800 rounded-2xl sm:p-6 p-4 border border-gray-700 hover:border-blue-500 transition-all duration-300">
                                 <div className="flex items-start space-x-4">
                                     <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
                                         <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -137,7 +137,7 @@ const Contact = () => {
                             </div>
 
                             {/* Phone */}
-                            <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-purple-500 transition-all duration-300">
+                            <div className="bg-gray-800 rounded-2xl sm:p-6 p-4 border border-gray-700 hover:border-purple-500 transition-all duration-300">
                                 <div className="flex items-start space-x-4">
                                     <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
                                         <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -156,7 +156,7 @@ const Contact = () => {
                             </div>
 
                             {/* Email */}
-                            <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-pink-500 transition-all duration-300">
+                            <div className="bg-gray-800 rounded-2xl sm:p-6 p-4 border border-gray-700 hover:border-pink-500 transition-all duration-300">
                                 <div className="flex items-start space-x-4">
                                     <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-lg flex items-center justify-center">
                                         <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -196,15 +196,15 @@ const Contact = () => {
 
                         {/* Quick Stats */}
                         <div className="grid grid-cols-3 gap-4 mt-8">
-                            <div className="text-center bg-gray-800 rounded-xl p-4 border border-gray-700">
+                            <div className="text-center bg-gray-800 rounded-xl sm:p-4 p-2 border border-gray-700">
                                 <div className="text-2xl font-bold text-blue-400 mb-1"> 2hrs</div>
                                 <div className="text-gray-400 text-sm">Response Time</div>
                             </div>
-                            <div className="text-center bg-gray-800 rounded-xl p-4 border border-gray-700">
+                            <div className="text-center bg-gray-800 rounded-xl sm:p-4 p-2 border border-gray-700">
                                 <div className="text-2xl font-bold text-purple-400 mb-1">24/7</div>
                                 <div className="text-gray-400 text-sm">Support</div>
                             </div>
-                            <div className="text-center bg-gray-800 rounded-xl p-4 border border-gray-700">
+                            <div className="text-center bg-gray-800 rounded-xl sm:p-4 p-2 border border-gray-700">
                                 <div className="text-2xl font-bold text-pink-400 mb-1">98%</div>
                                 <div className="text-gray-400 text-sm">Satisfaction</div>
                             </div>

@@ -9,6 +9,7 @@ const EmployeesDetail = () => {
     const [filteredEmployees, setFilteredEmployees] = useState([]);
     const [isSort, setIsSort] = useState(false);
     const [showIcon, setShowIcon] = useState(false)
+    const [showResetBtn, setShowResetBtn] = useState(false)
     useEffect(() => {
         let employeesDetail = JSON.parse(localStorage.getItem("employeesDetail")) || [];
         setEmployeesArr(employeesDetail);
@@ -28,6 +29,13 @@ const EmployeesDetail = () => {
 
     function handleUpdate(id) {
         navigate(`/update-employee-form/${id}`);
+    }
+
+    function handleReset() {
+        setFilteredEmployees(employeesArr)
+        setShowResetBtn(false)
+        setIsSort(false)
+        setShowIcon(false)
     }
 
     function getDepartment(value) {
@@ -60,6 +68,7 @@ const EmployeesDetail = () => {
         setFilteredEmployees(newEmployees);
         setSearchEmployee({ name: "", department: "" });
         setShowModal(false);
+        setShowResetBtn(true)
     };
 
 
@@ -158,8 +167,6 @@ const EmployeesDetail = () => {
                                                     <option value={5}>Development</option>
                                                 </select>
                                             </div>
-
-                                            {/* Submit Button */}
                                             <div className="flex justify-end">
                                                 <button
                                                     type="button"
@@ -174,11 +181,20 @@ const EmployeesDetail = () => {
                                 </div>
 
                             )}
-                            <button
-                                onClick={() => setShowModal(true)}
-                                className="bg-gradient-to-r from-teal-600 to-teal-700 text-white font-medium rounded-full hover:from-blue-500 hover:to-blue-600 transition-all duration-300 shadow hover:shadow-lg w-[40px] h-[40px] text-lg"
-                            >🔍
-                            </button>
+                            {
+                                showResetBtn ?
+                                    <button
+                                        onClick={handleReset}
+                                        className="bg-gradient-to-r px-6 py-2.5 from-teal-600 to-teal-700 text-white font-medium rounded-lg hover:from-blue-500 hover:to-blue-600 transition-all duration-300 shadow hover:shadow-lg "
+                                    >Reset Filter
+                                    </button>
+                                    :
+                                    <button
+                                        onClick={() => setShowModal(true)}
+                                        className="bg-gradient-to-r from-teal-600 to-teal-700 text-white font-medium rounded-full hover:from-blue-500 hover:to-blue-600 transition-all duration-300 shadow hover:shadow-lg w-[40px] h-[40px] text-lg"
+                                    >🔍
+                                    </button>
+                            }
                         </div>
                         <button
                             onClick={() => navigate("/employees-form")}
@@ -254,28 +270,30 @@ const EmployeesDetail = () => {
                     </div>
                 </div>
 
-                {filteredEmployees.length === 0 && (
-                    <div className="text-center py-16">
-                        <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <h3 className="mt-2 text-lg font-medium text-white">No employees found</h3>
-                        <p className="mt-1 text-sm text-gray-400">Add a new employee to get started</p>
-                        <div className="mt-6">
-                            <button
-                                onClick={() => navigate("/employees-form")}
-                                className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
-                            >
-                                <svg className="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                </svg>
-                                Add Employee
-                            </button>
+                {
+                    filteredEmployees.length === 0 && (
+                        <div className="text-center py-16">
+                            <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <h3 className="mt-2 text-lg font-medium text-white">No employees found</h3>
+                            <p className="mt-1 text-sm text-gray-400">Add a new employee to get started</p>
+                            <div className="mt-6">
+                                <button
+                                    onClick={() => navigate("/employees-form")}
+                                    className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
+                                >
+                                    <svg className="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                    </svg>
+                                    Add Employee
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                )}
-            </div>
-        </section>
+                    )
+                }
+            </div >
+        </section >
     );
 };
 
